@@ -1,4 +1,10 @@
 pipeline {
+  stages {
+    stage('Initialize') {
+      def dockerHome = tool 'myDocker'
+      env.PATH = "${dockerHome}/bin:${env.PATH}"
+    }
+  }
   agent {
     docker {
         image 'node'
@@ -8,7 +14,7 @@ pipeline {
   environment {
     CI = 'true'
   }
-
+  
   stages {
     stage('Build') {
       steps {
